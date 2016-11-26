@@ -1,1 +1,2 @@
-ceci est le début d'un fichier
+﻿ceci est le début d'un fichier
+j'aime pas ca
