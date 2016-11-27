@@ -3,7 +3,7 @@ close all;
 load('sauvegarde.mat')
 
 %Créer le fichier video 
-resultat_video=VideoWriter( 'resultat_video.avi');
+resultat_video=VideoWriter('resultat_video.avi');
 open(resultat_video);
 
 
@@ -12,7 +12,7 @@ video_init=VideoReader('vid_in.mp4');
 image1 = imread('trombinoscope.jpg');
 
 %Choix du seuil
-seuil=50;
+seuil=70;
 
 %intialisationn (premiere image)
 
@@ -24,7 +24,7 @@ seuil=50;
  
 
  Incrus=motif2frame(image1,image0,MatBary(1,:),MatBary(2,:),1/1.2,mask);
- imshow(Incrus);
+
  writeVideo(resultat_video,Incrus);
  
  OldBary=MatBary;
@@ -32,30 +32,29 @@ seuil=50;
  %Toutes les images
  %------------------
  
- for i=2:10
+ for i=2:video_init.NumberOfFrames
      
     % charge l'immage
-    image = read(video0,i);
+    image = read(video_init,i);
  
     %Calcul des distances de Maha
-    distMaha = Distance_Maha(image0, matCov, u);    
-      
+    distMaha = Distance_Maha(image, invCov, u);   
+          
     % seuil
     ImageMaha=distMaha<seuil;
 
     % nettoyer dilate erode
-     
-     
+    Image_nettoyee = Nettoyage(ImageMaha);
+    
+    
     %Labelisation
-    L = Labelisation(ImageMaha);
+    L = bwlabel(Image_nettoyee);
 
      
      % Calculer barycentre
      %Detection des Barycentres
-        nbBar=4;
-        NewBarycentres=zeros(nbBar,2);
-        
-        Matrice_Barycentre = Detection_barycentre(L, NewBarycentres);
+               
+     Matrice_Barycentre = Detection_barycentre(L);
      
      % ordonner les barycentres
      
@@ -63,10 +62,10 @@ seuil=50;
      
      % incruster l'image
 
-      Incrus=motif2frame(image1,image0,Position_Bary(1,:),Position_Bary(2,:),1/1.2,mask);
+      Incrus=motif2frame(image1,image,Position_Bary(1,:),Position_Bary(2,:),1/1.2,mask);
       
       % ecrire dans la video
-      writeVideo(resulta_video,Incrus);
+      writeVideo(resultat_video,Incrus);
       
       OldBary = Position_Bary;
        

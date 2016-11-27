@@ -60,17 +60,14 @@ cov31=cov13;
 
 %Création de la matrice de covariances
 
-
-matCov=[cov11 cov12 cov13;cov21 cov22 cov23;cov31 cov32 cov33];
-
-
-
+matCov=[cov11 cov12 cov13; cov21 cov22 cov23; cov31 cov32 cov33];
+invCov=inv(matCov);
 
 %Calcul des distances de Maha
-distMaha = Distance_Maha(image0, matCov, u);
+distMaha = Distance_Maha(image0, invCov, u);
 figure,imagesc(distMaha)
 
 
-save('sauvegarde','matCov','u','distMaha', 'image0');
+save('sauvegarde','matCov','u','distMaha', 'image0', 'invCov');
 
 

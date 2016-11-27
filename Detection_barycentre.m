@@ -1,20 +1,15 @@
-function [Detection] = Detection_barycentre(L, NewBarycentres)
+function [Detection] = Detection_barycentre(L)
 
-for i=1:4 %On range les coordonnées des barycentres dans une matrice 4*2
-            B=DetectionBary(L,i);
-            NewBarycentres(i,1)=B(1);
-            NewBarycentres(i,2)=B(2);
-            
-            bar = [B(1),B(2)];
-            if (i==1)
-                bar1 = bar;          
-            elseif (i==2)
-                bar2=bar;
-                 elseif (i==3)
-                bar3=bar;
-                   elseif (i==4)
-                bar4=bar;
-            end
+nbBar=4;
+Detection=zeros(2,nbBar);
+
+for i=1:4 %On range les coordonnées des barycentres dans une matrice 2*4
+            %B=DetectionBary(L,i);
+
+            [y,x]=find(L == i);
+                
+            Detection(1,i)= mean(double(x));
+            Detection(2,i)= mean(double(y));
+                       
 end
-
-[Detection] = [bar1 bar2 bar3 bar4];
+end
