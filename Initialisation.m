@@ -19,9 +19,10 @@ image1=Selection_zone(image0);
 [matCov, u] = Covariance(image1);
 invCov = inv(matCov); %Inversion de la matrice de covariance
 
-%Calcul des distances de Maha
+%Calcul des distances de Mahalanobis 
 distMaha = Distance_Maha(image0, invCov, u);
 figure,imagesc(distMaha);
+title('Distance de Mahalanobis des 4 picots');
 
 %---------------------------------
 %Etude des doigts
@@ -42,6 +43,7 @@ invCov_doigts = inv(matCov_doigts);
 %Calcul des distances de Maha
 distMaha_doigts = Distance_Maha(image_doigts, invCov_doigts, u_doigts);
 figure,imagesc(distMaha_doigts);
+title('Distance de Mahalanobis des doigts');
 
 %---------------------------------
 %Etude des doigts lors de la rotation de la main et de l'apparition d'une
@@ -60,6 +62,7 @@ invCov_doigts_sombre = inv(matCov_doigts_sombre);
 %Calcul des distances de Maha
 distMaha_doigts_sombre = Distance_Maha(image_doigts_sombre, invCov_doigts_sombre, u_doigts_sombre);
 figure,imagesc(distMaha_doigts_sombre);
+title('Distance de Mahalanobis des doigts avec l ombre');
 
 
 save('sauvegarde','matCov','u','distMaha', 'image0', 'invCov', 'matCov_doigts', 'u_doigts', 'distMaha_doigts', 'image_doigts', 'invCov_doigts', 'matCov_doigts_sombre', 'u_doigts_sombre', 'distMaha_doigts_sombre', 'image_doigts_sombre');

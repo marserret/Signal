@@ -35,7 +35,7 @@ seuil=80;
  writeVideo(resultat_video,Incrus);
  
  OldBary=MatBary;
- k=1;
+
  
  %------------------------------------------------
  %Seconde partie : application à toutes les images
@@ -51,13 +51,14 @@ seuil=80;
     distMaha = Distance_Maha(image, invCov, u);   
 
     %Trie de l'image par un seuil 
-    ImageMaha = distMaha<seuil;
+    ImageMaha = distMaha<seuil;  
 
     %Nettoyage des points isolés (nettoyer dilate erode)
     Image_nettoyee = Nettoyage(ImageMaha);
- 
+
     %Labelisation
     L = bwlabel(Image_nettoyee);
+    
 
     %Calculer barycentre
     %Detection des Barycentres

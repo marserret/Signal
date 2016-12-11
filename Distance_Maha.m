@@ -1,9 +1,9 @@
-function [Distance_Maha] = Distance_Maha( imgage,matCov, moyenne)
-%fonction permettant de créer les distance de mahalanobis
+function [Distance_Maha] = Distance_Maha(image,matCov, moyenne)
+%fonction permettant de calucler les distance de mahalanobis
 
-ComposanteR=double(imgage(:,:,1));
-ComposanteV=double(imgage(:,:,2));
-ComposanteB=double(imgage(:,:,3));
+ComposanteR=double(image(:,:,1));
+ComposanteV=double(image(:,:,2));
+ComposanteB=double(image(:,:,3));
 
 %A partir de tous les pixels, creation de la matrice des xi- moyenne.
 lineR=reshape(ComposanteR,1,numel(ComposanteR));
@@ -22,5 +22,6 @@ Distance_Maha= Vecteur_maha .* W;
 Distance_Maha = sum(Distance_Maha,1);
 
 %Création de l'image avec les distances
-Distance_Maha = reshape(Distance_Maha, [size(img,1),size(img,2)]);
+Distance_Maha = reshape(Distance_Maha, [size(image,1),size(image,2)]);
+
 end
