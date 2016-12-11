@@ -1,4 +1,6 @@
 function [Detection] = Detection_barycentre(L)
+%Fonction permettant de détecter les différents barycentre et de les ranger
+%dans une matrice
 
 nbBar=4;
 Detection=zeros(2,nbBar);
